@@ -58,8 +58,7 @@ limit 1;
 ```
 Вариант 6
 ```sql
-select 
-    concat_ws(' ', first_name, last_name) as "Имя Фамилия", e.hire_date as "Дата найма"
+select concat_ws(' ', first_name, last_name) as "Имя Фамилия", e.hire_date as "Дата найма"
 from person p
 join employee e on p.person_id = e.person_id
 where substring(last_name from 1 for 1) = 'М' 
@@ -69,8 +68,7 @@ limit 1;
 ```
 Вариант 7
 ```sql
-select 
-    concat_ws(' ', first_name, last_name) as "Имя Фамилия", e.hire_date as "Дата найма"
+select concat_ws(' ', first_name, last_name) as "Имя Фамилия", e.hire_date as "Дата найма"
 from person p
 join employee e on p.person_id = e.person_id
 where last_name ~ '^М.{7}$'
@@ -79,8 +77,7 @@ limit 1;
 ```
 Вариант 8
 ```sql
-select 
-    concat_ws(' ', first_name, last_name) as "Имя Фамилия", e.hire_date as "Дата найма"
+select concat_ws(' ', first_name, last_name) as "Имя Фамилия", e.hire_date as "Дата найма"
 from person p
 join employee e on p.person_id = e.person_id
 where left(last_name, 1) = 'М' and length(last_name) = 8
