@@ -18,6 +18,8 @@ order by ("Дата найма") asc, random()
 limit 1;
 ```
 Вариант 2
+
+Оптимальная производительность💫
 ```sql
 select concat_ws ( ' ', last_name, first_name) as "Имя Фамилия", e.hire_date as "Дата найма"
 from person p
