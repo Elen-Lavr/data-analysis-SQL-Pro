@@ -24,7 +24,7 @@ with cte1 as (--все уникальные id
 		select employee_id
 		from employee
 		where dismissal_date is not null),
-	cte5 as (--уволенные+не задействованные в проектах
+	cte5 as (-- уволенные + не задействованные в проектах
 		select employee_id from cte3
 		union
 		select employee_id from cte4),
