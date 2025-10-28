@@ -40,37 +40,6 @@ select
     end as average_age
 from cte6 
 ```
-Вариант 2
-
-Более лаконичный 💫
-```sql
-with cte1 as ( -- не задействованные в активных проектах
-    select e.employee_id
-    from employee e
-    where not exists (
-        select 1 
-        from project p 
-        where p.status = 'В работе'
-        and (e.employee_id = any(p.employees_id) or e.employee_id = p.project_manager_id)
-    )
-),
-cte2 as (-- все уволенные
-        select employee_id
-    from employee
-    where dismissal_date is not null
-),
-cte3 as ( -- объединяем
-    select employee_id from cte1
-    union
-    select employee_id from cte2
-)
-select --расчитываем средний возраст
-    coalesce(avg(extract(year from age(current_date, p.birthdate)))::integer, 0) as average_age
-from cte3 
-join employee e on cte3.employee_id = e.employee_id
-join person p on e.person_id = p.person_id;
-```
-
 ### :heavy_check_mark: Результат выполнения
 
 |average_age|
