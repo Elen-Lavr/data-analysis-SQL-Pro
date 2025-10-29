@@ -10,7 +10,6 @@
 
 ### :paperclip: SQL-запрос
 
-Вариант 1
 ```sql
 with cte1 as (--все уникальные id
 		select distinct(unnest (array_append(employees_id, project_manager_id))) as employee_id
