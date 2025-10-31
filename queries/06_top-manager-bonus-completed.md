@@ -7,10 +7,21 @@
 ```
 ### :paperclip: SQL-запрос
 ```sql
-select 
+select  project_manager_id, full_fio, bonus
+from (
+		select project_manager_id,
+			sum(project_cost* 0.01) as bonus,
+			dense_rank() over (order by sum(project_cost * 0.01) desc) as rank_bonus
+		from project
+		where status = 'Завершен'
+		group by project_manager_id
+				) a
+left join employee e on a.project_manager_id = e.employee_id
+left join person p on e.person_id = p.person_id
+where rank_bonus = 1
 ```
 ### :heavy_check_mark: Результат выполнения
 
-|count|
-|-----|
-|54|
+|project_manager_id|full_fio|bonus|
+|-----|-----|-----|
+|53|Михайлов Михаил Михайлович|904814.22|
