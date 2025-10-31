@@ -90,5 +90,5 @@ group by sum_projects_year, extract(year from fact_transaction_timestamp);
 ### :heavy_check_mark: Результат выполнения
 
 |sum_projects_year|year_|
-|-----|--_--|
+|-----|-----|
 |200054090.14|2024
