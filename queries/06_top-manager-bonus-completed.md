@@ -18,7 +18,7 @@ from (
 				) a
 left join employee e on a.project_manager_id = e.employee_id
 left join person p on e.person_id = p.person_id
-where rank_bonus = 1
+where rank_bonus = 1;
 ```
 ### :heavy_check_mark: Результат выполнения
 
