@@ -24,6 +24,144 @@
 
 📚 ***Исходные данные и описание базы данных Stroy.***
 
+_:card_file_box: Схема базы данных_
+
+```mermaid
+erDiagram
+    COUNTRY {
+        int country_id PK
+        varchar country_name
+    }
+
+    CITY {
+        int city_id PK
+        varchar city_name
+        int country_id FK
+    }
+
+    ADDRESS {
+        int address_id PK
+        varchar address
+        int city_id FK
+    }
+
+    PERSON {
+        int person_id PK
+        varchar first_name
+        varchar last_name
+        varchar middle_name
+        date birthdate
+        varchar phone_number
+        varchar email
+        int address_id FK
+    }
+
+    CUSTOMER {
+        int customer_id PK
+        varchar customer_name
+        varchar phone_number
+        varchar email
+        int address_id FK
+    }
+
+    TYPE_OF_WORK {
+        int type_of_work_id PK
+        varchar type_name
+    }
+
+    CUSTOMER_TYPE_OF_WORK {
+        int customer_id FK
+        int type_of_work_id FK
+    }
+
+    UNIT_TYPE {
+        int unit_type_id PK
+        varchar type_name
+    }
+
+    COMPANY_STRUCTURE {
+        int unit_id PK
+        int parent_id FK
+        varchar unit_name
+        int unit_type FK
+    }
+
+    POSITION {
+        int position_id PK
+        varchar position_name
+        int manager_position_id FK
+        int unit_id FK
+        int grade
+        boolean to_wearst
+    }
+
+    GRADE_SALARY {
+        int grade PK
+        numeric min_salary
+        numeric max_salary
+    }
+
+    EMPLOYEE {
+        int employee_id PK
+        int person_id FK
+    }
+
+    EMPLOYEE_POSITION {
+        int employee_id FK
+        int position_id FK
+        numeric salary
+        numeric rate
+        date start_date
+    }
+
+    EMPLOYEE_SALARY_HISTORY {
+        int employee_salary_history_id PK
+        int employee_id FK
+        int position_id FK
+        numeric salary_old
+        numeric salary_new
+        date start_date
+        date end_date
+    }
+
+    PROJECT {
+        int project_id PK
+        varchar project_name
+        int customer_id FK
+        varchar project_message_id
+        int employees_id FK
+        numeric project_cost
+        date sign_date
+        text description
+    }
+
+    PROJECT_PAYMENT {
+        int project_payment_id PK
+        int project_id FK
+        numeric amount
+        varchar payment_type
+        date plan_payment_date
+        timestamp fact_transaction_timestamp
+    }
+
+    COUNTRY ||--o{ CITY : has
+    CITY ||--o{ ADDRESS : located_in
+    ADDRESS ||--o{ PERSON : used_by
+    ADDRESS ||--o{ CUSTOMER : used_by
+    PERSON ||--|| EMPLOYEE : is
+    CUSTOMER ||--o{ PROJECT : orders
+    CUSTOMER }o--o{ TYPE_OF_WORK : specializes_in
+    COMPANY_STRUCTURE ||--o{ POSITION : contains
+    UNIT_TYPE ||--o{ COMPANY_STRUCTURE : classifies
+    COMPANY_STRUCTURE ||--o{ COMPANY_STRUCTURE : reports_to
+    POSITION ||--o{ POSITION : manages
+    GRADE_SALARY ||--o{ POSITION : defines_salary_range
+    EMPLOYEE }o--o{ POSITION : holds
+    EMPLOYEE_POSITION }|--|| EMPLOYEE_SALARY_HISTORY : tracks_changes
+    PROJECT ||--o{ PROJECT_PAYMENT : receives_payments
+    EMPLOYEE ||--o{ PROJECT : manages
+```
+
 📝 ***SQL запросы с решениями и результатами:***
 
 <div class="table-container">
